@@ -236,9 +236,9 @@ javadoc -encoding UTF-8 -charset UTF-8 Doc01.java
 ```
 4. JavaDoc 生成帮助文档，IDEA 中实现
 
-![Tools](https://mktongxue-document.oss-cn-hangzhou.aliyuncs.com/202205/008.png)
+![Tools](http://image.mktongxue.com/202205/008.png)
 
-![JavaDoc](https://mktongxue-document.oss-cn-hangzhou.aliyuncs.com/202205/009.png)
+![JavaDoc](http://image.mktongxue.com/202205/009.png)
 
 
 # 10 结束

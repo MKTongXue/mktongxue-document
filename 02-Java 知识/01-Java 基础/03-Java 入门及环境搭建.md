@@ -71,7 +71,7 @@ java HelloWorld
 ```
 
 1.7.3 运行结果  
-![运行结果](https://mktongxue-document.oss-cn-hangzhou.aliyuncs.com/202205/003.png)
+![运行结果](http://image.mktongxue.com/202205/003.png)
 
 
 ## 1.8 Java 程序运行机制
@@ -84,6 +84,6 @@ java HelloWorld
 1.9.1 [IDEA 官网地址](https://www.jetbrains.com)
 
 1.9.2 安装时配置截图  
-![配置截图](https://mktongxue-document.oss-cn-hangzhou.aliyuncs.com/202205/005.png)
+![配置截图](http://image.mktongxue.com/202205/005.png)
 
 # 2 结束

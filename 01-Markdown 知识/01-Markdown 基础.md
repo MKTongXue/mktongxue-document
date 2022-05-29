@@ -8,7 +8,7 @@
 
 2.1 在 VS Code 中安装插件，搜索 `Markdown Preview Enhanced` 点击安装即可。
 2.2 在右侧 Markdown 的预览里，点击鼠标右键，可以看到插件提供的各种导出功能。
-![导出功能](https://mktongxue-document.oss-cn-hangzhou.aliyuncs.com/202205/002.png)
+![导出功能](http://image.mktongxue.com/202205/002.png)
 
 
 # 3 Markdown 标题
