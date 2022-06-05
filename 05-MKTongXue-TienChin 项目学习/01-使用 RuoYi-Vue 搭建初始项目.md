@@ -66,21 +66,23 @@ Ctrl + Shift + R 可以全局查找替换
 // 启动项目前端，后端成功，标志修改成功！
 ```
 
-（2）注意大小写的查找替换
+（2）注意大小写的查找替换  
 ![注意大小写的查找替换](http://image.mktongxue.com/202206/002.png)
 
-（3）修改模块名
+（3）修改模块名  
 ![修改模块名A](http://image.mktongxue.com/202206/003-1.png)
+
 ![修改模块名B](http://image.mktongxue.com/202206/003-2.png)
 
-（4）修改包名
+（4）修改包名  
 ![修改包名A](http://image.mktongxue.com/202206/005-1.png)
+
 ![修改包名B](http://image.mktongxue.com/202206/005-2.png)
 
-（5）修改 CaptchaConfig 配置文件
+（5）修改 CaptchaConfig 配置文件  
 ![修改 CaptchaConfig 配置文件](http://image.mktongxue.com/202206/006.png)
 
-（6）Maven 重新编译项目
+（6）Maven 重新编译项目  
 ![Maven 重新编译项目](http://image.mktongxue.com/202206/007.png)
 
 
