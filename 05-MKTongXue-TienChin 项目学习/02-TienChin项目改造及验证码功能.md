@@ -40,5 +40,9 @@ flushdb
 ```
 
 （3）验证码功能探究，更多详情请阅读代码！
+```text
+// 示例项目 kaptcha
+D:\015-MyDocument\03-CodeMK\tienchin-example\kaptcha
+```
 
 # 5 结束
