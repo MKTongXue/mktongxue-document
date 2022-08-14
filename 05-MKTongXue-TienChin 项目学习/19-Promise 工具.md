@@ -3,6 +3,8 @@
 * 《069.前端回调地狱_TienChin》
 * 《070.Promise初体验_TienChin》
 * 《071.then方法的各种情况_TienChin》
+* 《072.Promise中的catch代码块_TienChin》
+* 《073.Promise中的finally代码块_TienChin》
 
 
 # 2 什么是回调地狱
@@ -216,7 +218,60 @@ new Promise(login).then(data => {
 
 # 5 new Promise().catch() 函数
 
+（1）`catch()` 并不是必须的，也可以直接在 `then` 中写两个回调函数，第二个回调函数就是用来处理 `catch` 的，不过更多情况下，都是单独写 `catch` 的。
+
+进入到 `catch` 中，分为两种情况
+- `Promise` 在执行过程中，通过 `reject` 返回数据内容
+- `then` 中抛出异常
+进入 `catch` 的时候，都是就近进入原则。
+
+
+# 6 new Promise().finally() 函数
+
+（1）无论是最终执行了 `then` 还是 `catch`，都会进入到 `finally` 代码块中。
+
+```javaScript
+function login(resolve, reject) {
+    setTimeout(() => {
+        // 生成一个随机数
+        let number = Math.random();
+        if (number > 0.5) {
+            // 登录成功，利用 resolve 函数将登录成功的结果扔出去
+            resolve("login success");
+        } else {
+            // 登录失败，利用 reject 函数将登录失败的结果扔出去
+            reject("login error")
+        }
+    }, 1000);
+}
+
+new Promise(login).then(data => {
+    // 如果 login 将来执行成功（就是 resolve 方法抛出执行结果的时候）
+    console.log("then1: ", data);
+
+    return data;
+}).then(data=>{
+    console.log("then2: ", data);
+
+    return data;
+}).then(data=>{
+    // throw new Error("出错啦！");
+}).catch(err=>{
+    console.error("err1: ", err);
+}).finally(()=>{
+    console.log("finally 执行！")
+}).then(()=>{
+    console.log("finally 之后还可以 then 或者 catch 方法")
+})
+```
+
+无论是 `catch` 还是 `then`，反正 `finally` 都会执行！
+`finally` 之后还可以 `then` 或者 `catch` 方法。
+
+
+# 7 静态方法
+
 （1）
 
 
-# 6 结束
+# 8 结束
