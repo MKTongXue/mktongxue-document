@@ -271,7 +271,79 @@ new Promise(login).then(data => {
 
 # 7 静态方法
 
-（1）
+（1）`Promise.resolve()`方法，返回一个带有给定值解析后的 `Promise` 对象。
+
+```javaScript
+let p1 = Promise.resolve("hello promise!");
+p1.then(data => {
+    console.log('data: ', data);
+}).catch(err => {
+    // 除非 then 中抛出异常，才会进入到 catch 中，否则不会进入到 catch 中
+})
+```
+
+（2）`Promise.reject()`返回一个带有 `reject` 原因的 `Promise` 对象。
+
+```javaScript
+function resolved() {
+    console.log("resolved")
+}
+
+function rejected(err) {
+    console.log("err: ", err);
+}
+
+let p1 = Promise.reject("出错啦");
+// p1.then(resolved, rejected);
+// p1 只会进入到 catch 中
+p1.then(resolved).catch(rejected);
+```
+
+（3）`Promise.all()`这个静态方法接受多个 `Promise` 对象，并且只返回一个 `Promise` 实例，`all` 方法中会传入多个 `Promise` 实例，他会等所有的 `Promise` 对象都 `resolve` 之后，才会进入到 `then` 中，否则只要参数中的 `Promise` 中有一个对象 `reject` 了，就会进入到 `catch` 中了。
+
+简而言之一句话，所有的 `Promise` 都成功，进入 `then`，有一个 `Promise` 失败，进入 `catch`
+
+```javaScript
+let p1 = Promise.resolve('javaboy');
+
+let p2 = 88;
+
+let p3 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 3000, "hello javaboy");
+});
+
+Promise.all([p1,p2,p3]).then(data => {
+    // p1 p2 p3 都是 resolve，就会进入到 then 中
+    console.log("data: ", data);
+}).catch(err => {
+    // p1 p2 p3 有一个 reject，就会进入到 catch 中
+    console.error("err: ", err);
+});
+
+// all 方法能够帮助我们确保多个异步任务同时执行成功
+```
+
+（4）`Promise.race()`这个也可以接受多个 `Promise` 对象，一旦参数中的 `Promise` 对象 `resolve` 或者 `reject`，就会进入到 `resolve` 或者 `reject` 中。
+
+简而言之，参数中只要有一个执行成功或者失败，就 OK，不会等其他的 `Promise` 了，其他的执行慢的 `Promise` 对象就直接被抛弃了。
+
+```javaScript
+let p1 = new Promise((resolve, reject) => {
+    setTimeout(reject, 300, "one");
+})
+
+let p2 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 200, "two");
+})
+
+Promise.race([p1, p2]).then(data => {
+    console.log("data: ", data);
+}).catch(err => {
+    console.error("err: ", err);
+})
+
+// 由于 p2 执行的快，所以最终进入到 then 中的就是 p2，p1 被舍弃了！
+```
 
 
 # 8 结束
