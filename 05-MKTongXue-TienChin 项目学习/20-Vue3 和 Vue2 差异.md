@@ -1,0 +1,75 @@
+# 1 包含的课程
+
+* 《076.Vue3中的变量定义方式_TienChin》
+
+
+# 2 变量定义
+
+（1）`Vue3` 中可以原封不动的使用 `Vue2` 中的方法（Options API）。但是 `Vue3` 中提供了一些语法糖。
+
+（2）在 `Vue2` 中定义变量
+```javaScript
+<template>
+    <!-- Vue2 用法 -->
+    <div>hello 01!</div>
+    <h1>{{msg}}</h1>
+</template>
+
+<script>
+    export default {
+        name: "My01",
+        data(){
+            return{
+                msg: "hello mktongxue!"
+            }
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>
+```
+
+（3）在 `Vue3` 中定义变量
+```javaScript
+<template>
+    <!-- Vue3 用法 -->
+    <div>
+        <div>hello 01!</div>
+        <h1>{{msg}}</h1>
+        <input type="text" v-model="msg">
+    </div>
+</template>
+
+<script>
+    import {ref} from 'vue';
+
+    export default {
+        name: "My02",
+        /**
+         * 我们以前在 Vue2 中定义的各种变量、方法、生命周期钩子函数等等，现在统一都在 setup 中进行定义。
+         *
+         * 需要注意的是，所有定义的变量，方法等，都需要返回之后才可以使用。
+         * 
+         */
+        setup() {
+            // 注意，直接这样写，这个变量不是响应式数据
+            // let msg = "hello vue3";
+
+            // 响应式写法
+            let msg = ref("hello vue3");
+            return {msg};
+        }
+    }
+</script>
+
+<style scoped></style>
+```
+
+（4）注意点
+*  变量定义，需要用到 `ref` 函数，该函数，直接从 `vue` 中导入，否则直接定义的变量不具备响应式的特性。
+* 所有定义的变量、方法等，都需要 `return`，不 `return`，使用不了。
+
+
+# 3 结束

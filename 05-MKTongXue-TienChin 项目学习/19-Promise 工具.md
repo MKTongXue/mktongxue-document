@@ -5,6 +5,8 @@
 * 《071.then方法的各种情况_TienChin》
 * 《072.Promise中的catch代码块_TienChin》
 * 《073.Promise中的finally代码块_TienChin》
+* 《074.Promise中的静态方法_TienChin》
+* 《075.TienChin项目Vue3中的Promise_TienChin》
 
 
 # 2 什么是回调地狱
