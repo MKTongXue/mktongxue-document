@@ -1,6 +1,7 @@
 # 1 包含的课程
 
 * 《076.Vue3中的变量定义方式_TienChin》
+* 《077.Vue3中方法的定义_TienChin》
 
 
 # 2 变量定义
@@ -72,4 +73,32 @@
 * 所有定义的变量、方法等，都需要 `return`，不 `return`，使用不了。
 
 
-# 3 结束
+# 3 方法定义
+
+（1）在 `Vue2` 中，我们一般是将方法定义在 `methods` 节点中，但是在 `Vue3` 中，我们将方法定义在 `setup` 方法中，尤其要注意，方法定义完成之后，必须要返回方法名，否则方法用不了。
+像定义一个变量一样去定义方法，方法定义完成之后，一定要返回。
+
+```html
+<template>
+    <div>
+        <button @click="doLogin('zhangsan','123')">登录</button>
+    </div>
+</template>
+
+<script>
+export default{
+    name:"TestFunction",
+    setup() {
+        // 定义方法
+        const doLogin = (username, password) => {
+            console.log(username);
+            console.log(password);
+        }
+        return {doLogin};
+    }
+}
+</script>
+```
+
+
+# 4 结束
