@@ -3,6 +3,8 @@
 * 《076.Vue3中的变量定义方式_TienChin》
 * 《077.Vue3中方法的定义_TienChin》
 * 《078.Vue3中钩子函数的定义_TienChin》
+* 《079.Vue3中的计算属性_TienChin》
+* 《080.Vue3中的watch函数_TienChin》
 
 
 # 2 变量定义
@@ -182,4 +184,184 @@ export default{
 | deactivated | OnDeactivated |
 
 
-# 5 结束
+# 5 计算属性 Computed
+
+（1）计算属性和钩子函数比较类似，计算属性使用步骤：
+* 从 `vue` 中导入计算属性函数
+* 定义计算属性
+* 在 `return` 中返回计算属性值
+
+```javaScript
+<template>
+    <div>
+        <button @click="doLogin('zhangsan','123')">登录</button>
+    </div>
+
+    <div> {{currentTime}} </div>
+</template>
+
+<script>
+// 使用钩子函数时，首先导入钩子函数
+// 计算属性的使用，也需要首先导入计算属性
+import {onMounted, computed} from 'vue';
+
+export default{
+    name:"TestFunction",
+    setup() {
+        // 定义方法
+        const doLogin = (username, password) => {
+            console.log(username);
+            console.log(password);
+        }
+
+        // 调用钩子函数，并传入回调函数
+        // 另外需要注意，这个钩子函数不需要返回
+        onMounted(() => {
+            console.log("Vue3 使用 onMounted() 函数")
+        })
+
+        // 现在就可以通过计算属性去定义一个变量了
+        const currentTime = computed(()=>{
+            return Date.now()
+        })
+
+        // 注意，计算属性需要在 return 中返回
+        return {doLogin, currentTime};
+    }
+}
+</script>
+```
+
+（2）使计算属性内值更新
+
+```javaScript
+<template>
+    <div>
+        <button @click="doLogin('zhangsan','123')">登录</button>
+    </div>
+
+    <div> {{currentTime}} </div>
+
+    <h2> {{msg}} </h2>
+    <h2> {{age}} </h2>
+</template>
+
+<script>
+// 使用钩子函数时，首先导入钩子函数
+// 计算属性的使用，也需要首先导入计算属性
+import {onMounted, computed} from 'vue';
+
+import {ref} from 'vue';
+
+export default{
+    name:"TestFunction",
+    setup() {
+        let msg = ref("hello vue3");
+        let age = ref(99);
+
+        // 定义方法
+        const doLogin = (username, password) => {
+            console.log(username);
+            console.log(password);
+
+            age.value++;
+            msg.value = 'hello MKTongXue';
+        }
+
+        // 调用钩子函数，并传入回调函数
+        // 另外需要注意，这个钩子函数不需要返回
+        onMounted(() => {
+            console.log("Vue3 使用 onMounted() 函数")
+        })
+
+        // 现在就可以通过计算属性去定义一个变量了
+        const currentTime = computed(()=>{
+            // age 响应式数据值变化，才会更新计算属性
+            age.value++;
+            return Date.now()
+        })
+
+        // 注意，计算属性需要在 return 中返回
+        return {doLogin, currentTime, age, msg};
+    }
+}
+</script>
+```
+
+由于生成计算属性 `currentTime` 依赖 `age` 变量，所以当 `age` 变量发生变化的时候，计算属性会自动更新，否则计算属性将一直使用缓存中的数据（`age` 没有发生变化的情况）。
+另外还有一点，就是定义的变量入 `age` 和 `msg` 等 ，在 `HTML` 节点中，直接使用 `age`、`msg`，但是如果是在方法中操作这些变量，则一定要使用 `age.value` 或者 `msg.value` 去操作这些变量。
+
+
+# 6 Watch 函数
+
+（1）`Vue3` 中 `watch` 函数写法
+```javaScript
+<template>
+    <div>
+        <button @click="doLogin('zhangsan','123')">登录</button>
+    </div>
+
+    <div> {{currentTime}} </div>
+
+    <h2> {{msg}} </h2>
+    <h2> {{age}} </h2>
+</template>
+
+<script>
+// 使用钩子函数时，首先导入钩子函数
+// 计算属性的使用，也需要首先导入计算属性
+import {onMounted, computed, watch} from 'vue';
+
+import {ref} from 'vue';
+
+export default{
+    name:"TestFunction",
+    setup() {
+        let msg = ref("hello vue3");
+        let age = ref(99);
+
+        // 定义方法
+        const doLogin = (username, password) => {
+            console.log(username);
+            console.log(password);
+
+            age.value++;
+            msg.value = 'hello MKTongXue';
+        }
+
+        // 调用钩子函数，并传入回调函数
+        // 另外需要注意，这个钩子函数不需要返回
+        onMounted(() => {
+            console.log("Vue3 使用 onMounted() 函数")
+        })
+
+        // 现在就可以通过计算属性去定义一个变量了
+        const currentTime = computed(()=>{
+            // age 响应式数据值变化，才会更新计算属性
+            age.value++;
+            return Date.now()
+        })
+
+        // watch 函数
+        watch(age, (newValue, oldValue) => {
+            console.log("newValue", newValue);
+            console.log("oldValue", oldValue);
+        })
+
+        // 注意，计算属性需要在 return 中返回
+        return {doLogin, currentTime, age, msg};
+    }
+}
+</script>
+```
+
+* 先从 `vue` 中导入 `watch` 函数。
+* 在 `setup` 中去监控变量，第一个参数是要监控的变量，第二个参数则是一个回调函数，回调函数的参数就是所监控变量值的变化。
+
+
+# 7 `ref` 和 `reactive` 函数
+
+（1）
+
+
+# 8 结束
