@@ -5,6 +5,7 @@
 * 《078.Vue3中钩子函数的定义_TienChin》
 * 《079.Vue3中的计算属性_TienChin》
 * 《080.Vue3中的watch函数_TienChin》
+* 《081.Vue3中的ref和reactive_TienChin》
 
 
 # 2 变量定义
@@ -362,6 +363,96 @@ export default{
 # 7 `ref` 和 `reactive` 函数
 
 （1）
+```javaScript
+<template>
+    <div>
+        <div>{{age}}</div>
+
+        <div>{{book.name}}</div>
+
+        <div>{{book.author}}</div>
+    </div>
+</template>
+
+<script>
+    import {ref, reactive} from 'vue';
+
+    export default {
+        name: "My03",
+        setup() {
+            const age = ref(99);
+
+            const book = reactive({
+                name: "三国演义",
+                author: '罗贯中'
+            });
+
+            return {age, book};
+        }
+    }
+</script>
+
+<style scoped></style>
+```
+
+一般来说，我们通过 `ref` 来定义一个变量，一般都是原始数据类型，例如 `String`、`Number`、`BigInt`、`Boolean` 等，通过 `reactive` 来定义一个对象。
+
+如上面的案例所示，定义了 `book` 对象之后，接下来的访问中，通过 `book.xxx` 就可以访问到 `book` 中的属性值了。
+
+但是，假设我们在定义的时候，定义的是 `book` 对象，但是我们访问的时候，却希望能够直接按照属性来访问，此时可以直接展开变量，但是，如果直接通过三个点去展开变量 `...book`，会导致变量的响应式特点失效，此时，我们可以通过 `toRefs` 函数，让变量恢复响应式的特点。
+
+```javaScript
+<template>
+    <div>
+        <div>{{age}}</div>
+
+        <!-- <div>{{book.name}}</div> -->
+        <!-- <div>{{book.author}}</div> -->
+
+        <div>{{name}}</div>
+        <div>{{author}}</div>
+        <button @click="updateBookInfo">更新图书信息</button>
+    </div>
+</template>
+
+<script>
+    import {ref, reactive, toRefs} from 'vue';
+
+    export default {
+        name: "My03",
+        setup() {
+            const age = ref(99);
+
+            const book = reactive({
+                name: "三国演义",
+                author: '罗贯中'
+            });
+
+            const updateBookInfo = ()=>{
+                // 修改书名
+                // 注意，在 vue3 中，现在方法中访问变量，不再需要 this
+                book.name = '三国演义 AAA';
+            }
+            
+            // 如果直接写 ...book 会导致响应式失效
+            // 通过 toRefs 函数，可以解决这个问题 ...toRefs(book)
+            return {age, ...toRefs(book), updateBookInfo};
+        }
+    }
+</script>
+
+<style scoped></style>
+```
+
+（2）小结
+* `ref` 定义原始数据类型；`reactive` 定义对象。
+* 如果用到了对象展开，那么需要用到 `toRefs` 函数将对象中的属性变为响应式。
+* 在 `vue3` 中，定义的变量、函数等等，在使用的时候，都不需要 `this`。
 
 
-# 8 结束
+# 8 `setup()` 方法
+
+（1）
+
+
+# 9 结束
