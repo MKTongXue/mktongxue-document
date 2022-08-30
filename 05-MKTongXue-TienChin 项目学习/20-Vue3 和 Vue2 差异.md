@@ -6,6 +6,7 @@
 * 《079.Vue3中的计算属性_TienChin》
 * 《080.Vue3中的watch函数_TienChin》
 * 《081.Vue3中的ref和reactive_TienChin》
+* 《082.Vue3中的setup函数_TienChin》
 
 
 # 2 变量定义
@@ -453,6 +454,46 @@ export default{
 # 8 `setup()` 方法
 
 （1）
+```javaScript
+<template>
+    <div>
+        <div>{{age}}</div>
+
+        <div>{{book.name}}</div>
+        <div>{{book.author}}</div>
+
+        <div>{{name}}</div>
+        <div>{{author}}</div>
+        <div>
+            <button @click="updateBookInfo">更新图书信息</button>
+        </div>
+
+    </div>
+</template>
+
+<!-- 直接在 script 节点中定义 setup 属性，然后，script 节点就像以前 jquery 写法一样 -->
+<script setup>
+    import {ref, reactive, toRefs} from 'vue';
+
+    const age = ref(99);
+
+    const book = reactive({
+        name: "三国演义",
+        author: '罗贯中'
+    });
+
+    const updateBookInfo = () => {
+        book.name = '三国演义 BBB';
+    }
+
+    // 展开的变量
+    const {name, author} = toRefs(book);
+</script>
+
+<style scoped></style>
+```
+
+直接在 `script` 节点中，增加 `setup` 属性，然后 `script` 节点中定义的变量名、方法名等等，默认就会自动返回，我们只需要使用即可。
 
 
 # 9 结束
